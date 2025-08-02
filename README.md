@@ -60,7 +60,7 @@ npm start
 
 The application will be available at `http://localhost:3000`
 
-## 📊 Usage
+## Usage
 
 1. **Adjust Parameters**: Use the sliders to set qubit count (2-16), scrambling depth (1-10), and measurement shots
 2. **Run Simulation**: Click "Run Simulation" to start the quantum computation
@@ -85,7 +85,7 @@ The application will be available at `http://localhost:3000`
 - **Memory Usage**: Efficient circuit representation and state management
 - **Scalability**: Designed for both local simulation and cloud quantum hardware
 
-## 🎯 Key Results
+## Key Results
 
 The simulator demonstrates:
 - **Page Curve Reproduction**: Characteristic rise-peak-fall pattern
@@ -93,7 +93,7 @@ The simulator demonstrates:
 - **Quantum Scrambling**: Fast entanglement generation via random circuits
 - **Hardware Verification**: Compatible with IBM Quantum devices
 
-## 🔮 Future Extensions
+## Future Extensions
 
 - **AMPS Paradox**: Implementation of firewall paradox circuits
 - **ER=EPR**: Einstein-Rosen bridge visualization
@@ -102,13 +102,13 @@ The simulator demonstrates:
 - **Real Hardware**: Direct IBM Quantum execution
 - **Error Mitigation**: Advanced error correction techniques
 
-## 📚 References
+## References
 
 - [Hawking Realized](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5260754) - First hardware-verified simulation
 - [ArXiv 2505.23226](https://arxiv.org/abs/2505.23226) - Quantum-circuit model for black-hole evaporation
 - [Qubit-Transport Toy Model](https://arxiv.org/pdf/2412.15180.pdf) - Theoretical foundation
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -116,11 +116,7 @@ The simulator demonstrates:
 4. Add tests if applicable
 5. Submit a pull request
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - IBM Quantum for providing quantum computing resources
 - Qiskit community for excellent quantum computing tools
