@@ -1,4 +1,4 @@
-# Quantum Black-Hole Evaporation Simulator
+# Quantum Black-Hole Evaporation Simulator-by DhruvJha
 
 An interactive web application for simulating Hawking radiation and black-hole evaporation using quantum circuits. This project implements a qubit-transport toy model that reproduces the Page curve and entanglement structure of evaporating black holes.
 
