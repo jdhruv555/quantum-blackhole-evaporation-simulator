@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Configure axios defaults
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
 axios.defaults.timeout = 300000; // 5 minutes for long simulations
 
 export async function runSimulation(params) {

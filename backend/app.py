@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from qiskit import QuantumCircuit, Aer, execute, QuantumRegister, ClassicalRegister
+from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
+from qiskit_aer import Aer
 from qiskit.quantum_info import random_unitary, Operator
-from qiskit.circuit.library import TwoLocal
 import numpy as np
 import json
 import logging
@@ -34,9 +34,11 @@ class BlackHoleSimulator:
             
     def initialize_black_hole(self, qc):
         """Initialize black hole in a random pure state."""
-        # Apply random unitary to black hole qubits
-        random_circuit = TwoLocal(self.n_qubits, ['ry', 'rz'], 'cz', reps=3)
-        qc.compose(random_circuit, qubits=self.q_reg, inplace=True)
+        # Apply simple random rotations to black hole qubits
+        for i in range(self.n_qubits):
+            qc.h(self.q_reg[i])
+            qc.rz(np.random.random() * 2 * np.pi, self.q_reg[i])
+            qc.rx(np.random.random() * 2 * np.pi, self.q_reg[i])
         
     def apply_scrambling(self, qc, depth=4):
         """Apply brick-wall random unitary circuit for fast scrambling."""
@@ -113,9 +115,9 @@ class BlackHoleSimulator:
             # Create circuit for this step
             qc = self.simulate_emission_step(step)
             
-            # Execute on simulator
+            # Execute on simulator using Aer backend
             backend = Aer.get_backend('qasm_simulator')
-            job = execute(qc, backend, shots=shots)
+            job = backend.run(qc, shots=shots)
             result = job.result()
             counts = result.get_counts()
             
@@ -190,8 +192,19 @@ def get_circuit(step):
         simulator = BlackHoleSimulator(n_qubits)
         qc = simulator.simulate_emission_step(step)
         
-        # Convert circuit to text representation
-        circuit_text = qc.draw(output='text')
+        # Convert circuit to text representation and handle the TextDrawing object
+        try:
+            circuit_drawing = qc.draw(output='text')
+            # Convert TextDrawing to string if it's not already a string
+            if hasattr(circuit_drawing, 'single_string'):
+                circuit_text = circuit_drawing.single_string()
+            elif hasattr(circuit_drawing, '__str__'):
+                circuit_text = str(circuit_drawing)
+            else:
+                circuit_text = "Circuit visualization not available"
+        except Exception as e:
+            logger.error(f"Circuit drawing error: {str(e)}")
+            circuit_text = f"Circuit for step {step} (drawing error: {str(e)})"
         
         return jsonify({
             'step': step,
@@ -230,4 +243,4 @@ def get_parameters():
 
 if __name__ == '__main__':
     logger.info("Starting Quantum Black Hole Simulator backend...")
-    app.run(debug=True, host='0.0.0.0', port=5000) 
+    app.run(debug=True, host='0.0.0.0', port=5001) 
